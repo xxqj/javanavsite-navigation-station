@@ -1,0 +1,69 @@
+<#macro content_footer>
+<footer class="main-footer footer-type-1 text-xs">
+    <div id="footer-tools" class="d-flex flex-column">
+        <a href="javascript:" id="go-to-up" class="btn rounded-circle go-up m-1" rel="go-top">
+            <i class="iconfont icon-to-up"></i>
+        </a>
+        <!-- 右下角搜索  -->
+        <a href="javascript:" data-toggle="modal" data-target="#search-modal" class="btn rounded-circle m-1"
+           rel="search" one-link-mark="yes">
+            <i class="iconfont icon-search"></i>
+        </a>
+        <a href="https://dh.greenflash.cn/p/links.html" class="btn rounded-circle kefu m-1" target="_blank" data-toggle="tooltip" data-placement="left" title="联系我们">
+            <i class="mode-ico iconfont icon-qq"></i>
+        </a>
+        <!-- 右下角搜索 end -->
+        <#if paramsTag("nightMode")??>
+        <a href="javascript:" onclick="window.location.href='javascript:switchNightMode()'" class="btn rounded-circle switch-dark-mode m-1" id="yejian"
+           data-toggle="tooltip" data-placement="left" title="夜间模式">
+            <i class="mode-ico iconfont icon-light"></i>
+        </a>
+        <#else>
+        <a href="javascript:" onclick="window.location.href='javascript:switchNightMode()'" class="btn rounded-circle switch-dark-mode m-1" id="yejian"
+           data-toggle="tooltip" data-placement="left" title="日间模式">
+            <i class="mode-ico iconfont icon-night"></i>
+        </a>
+    </#if>
+    </div>
+    <div class="footer-inner card rounded-xl m-0">
+        <div class="footer-text card-body text-muted text-center text-md-left">
+            <div class="row my-4">
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
+                    <a class="footer-logo" href="https://dh.greenflash.cn" title="绿闪导航">
+                        <img src="${ctx()}/assets/images/gf-expand-light.png" class="logo-light mb-3" alt="绿闪导航" height="40">
+                        <img src="${ctx()}/assets/images/gf-expand-dark.png" class="logo-dark d-none mb-3" alt="绿闪导航" height="40">
+                    </a>
+                    <div class="text-sm">绿闪导航(GF)致力于收集与自由职业者相关的热门工具，包括但不限于电商、网赚项目、带货、课程等领域，并为广大自由职业者提供学习平台，降低获取学习资源的成本。</div>
+                </div>
+                <div class="col-12 col-md-5 mb-4 mb-md-0">
+                    <p class="footer-links text-sm mb-3"><a href='${paramsTag("public_website_domain")}/p/links.html' target="_blank">友链申请</a>|<a href='${paramsTag("public_website_domain")}/p/about.html' target="_blank">关于我们</a></p>                                        <div class="footer-social">
+                    <a class="rounded-circle bg-light" href="${ctx()}/assets/images/商务合作.jpeg" target="_blank"  data-toggle="tooltip" data-placement="top" title="绿闪微信交流群" rel="external noopener nofollow">
+                        <i class="iconfont icon-wechat"></i>
+                    </a><a class="rounded-circle bg-light qr-img" href="javascript:;" data-toggle="tooltip" data-placement="top" data-html="true" title="<img src='${ctx()}/assets/images/商务合作.jpeg' height='100' width='100'>">
+                    <i class="iconfont icon-wechat"></i>
+                </a>                    </div>
+                </div>
+                <div class="col-12 col-md-3 text-md-right mb-4 mb-md-0">
+                    <div class="footer-mini-img" data-toggle="tooltip" title="商务合作">
+                        <p class="bg-light rounded-lg p-1">
+                            <img class=" " src="${ctx()}/assets/images/商务合作.jpeg" alt="商务合作绿闪导航">
+                        </p>
+                        <span class="text-muted text-ss mt-2">商务合作</span>
+                    </div>
+                    <div class="footer-mini-img" data-toggle="tooltip" title="绿闪导航交流群">
+                        <p class="bg-light rounded-lg p-1">
+                            <img class=" " src="${ctx()}/assets/images/商务合作.jpeg" alt="交流群绿闪导航">
+                        </p>
+                        <span class="text-muted text-ss mt-2">绿闪导航交流群</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright text-xs">
+                ${paramsTag("website_copyright")!""}| ${paramsTag("website_case_num")!""}
+            </div>
+        </div>
+    </div>
+</footer>
+</div><!-- main-content end -->
+</div><!-- page-container end -->
+</#macro>

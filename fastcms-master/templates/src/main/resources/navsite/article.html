@@ -1,0 +1,22 @@
+<#import "header.html" as header>
+<@header.header "${(article.title)!}-绿闪导航"></@header.header>
+
+<#import "sidebar.html" as sidebar>
+<@sidebar.sidebar/>
+
+<#import "content_header.html" as content_header>
+<@content_header.content_header/>
+
+<div class="header-big  post-top css-color mb-4" id="search-bg" style="">
+</div>
+<#import "content_article.html" as content_article>
+<@content_article.content_article/>
+
+<#import "content_footer.html" as content_footer>
+<@content_footer.content_footer/>
+
+<#import "modal_search.html" as modal_search>
+<@modal_search.modal_search/>
+
+<#import "footer.html" as footer>
+<@footer.footer/>

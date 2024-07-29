@@ -1,0 +1,162 @@
+<#macro content_links>
+<div id="content" class="content-site customize-site">
+
+    <div class="row site-content py-4 py-md-5 mb-xl-5 mb-0 mx-xxxl-n5">
+        <!-- 网址信息 -->
+        <div class="col-12 col-sm-5 col-md-4 col-lg-3">
+            <div class="siteico">
+                <img class="img-cover lazy unfancybox error" src="${(site.linkIcon)!}">
+                <div id="country" class="text-xs custom-piece_c_b country-piece" style="display:none;">
+                    <i class="iconfont icon-loading icon-spin"></i>
+                </div>
+                <div class="tool-actions text-center mt-md-4"> </div>
+            </div>
+        </div>
+        <div class="col mt-4 mt-sm-0">
+            <div class="site-body text-sm">
+                <a class="btn-cat custom_btn-d mr-1" style="background: #28a745" href='${paramsTag("public_website_domain")}/site/${(site.id)!}.html'>${(site.catNames)!}</a>
+                <h1 class="site-name h3 my-3">${(site.linkName)!}</h1>
+                <div class="mt-2">
+                    <p class="mb-2">
+                        <#if (site.linkDesc)?? && (site.linkDesc)?length gt 50>
+                        ${site.linkDesc?substring(0,50)}...
+                        <#else>
+                        ${(site.linkDesc)!}
+                    </#if>
+                    </p>
+                    <p class="mb-2">浏览次数:${(site.viewCount)!}</p><p class="mb-2">收录时间:<@formatTime value=site.created!/></p>
+
+
+                    <div class="site-go mt-3">
+                        <div id="security_check_img"></div>
+                        <span class="site-go-url">
+                             <a href="${(site.linkUrl)!}" title="绿闪导航" target="_blank" class="btn btn-arrow mr-2">
+                                 <span>链接直达<i class="iconfont icon-arrow-r-m"></i></span></a></span>
+                        <a href="javascript:" class="btn btn-arrow qr-img" data-toggle="tooltip" data-placement="bottom" data-html="true" title="" data-original-title="<img src='${paramsTag('public_website_domain')}/fastcms/anonymous/qr/?text=${(site.linkUrl)!}/&amp;size=150&amp;margin=10' width='150'>">
+                            <span>手机查看<i class="iconfont icon-qr-sweep"></i></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 网址信息 end -->
+        <div class="col-12 col-md-12 col-lg-4 mt-4 mt-lg-0">
+            <div class="apd apd-right">
+                <div class="text-center">
+                    <div>关注公众号，免费获取价值998的内部资料</div>
+                    <img style="width: 200px;height: 200px;" src="${ctx()}/assets/images/商务合作.jpeg" alt="免费获取价值998的内部资料">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="padding-left: 30 em;padding-right: 30 em;margin: 0 0">
+        <div class="card  col-sm-12 col-md-8 col-lg-8 " >
+            <div class="card-body">
+                <h5 class="card-title btn-cat" style="background: #28a745">${(site.linkName)!}</h5>
+                <p class="card-text">${(site.linkDesc)!}</p>
+            </div>
+        </div>
+
+
+        <div class="card col-sm-12 col-md-4 col-lg-4 " >
+
+            <div class="card-body">
+                <h5 class="card-title">热门网址</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <@navLinkListTag  orderBy="a.view_count" cnt="6">
+                <#if data?? &&(data?size>0)>
+                <#list data as link>
+                <li class="list-group-item">
+                    <div class="url-img rounded-circle">
+                        <a href='${paramsTag("public_website_domain")}/site/${(link.id)!}.html' target="_blank">
+                            <img class="lazy unfancybox loaded" src="${(link.linkIcon)!}"  height="24em" width="24em" alt="${(link.linkName)!}" data-was-processed="true">
+                            ${(link.linkName)!}   (${(link.viewCount)! 1} 热度)
+                        </a>
+                    </div>
+                </li>
+            </#list>
+        </#if>
+    </@navLinkListTag>
+    </ul>
+</div>
+</div>
+
+<div class="d-flex flex-fill">
+    <h4 class="text-gray text-lg mb-4">
+        <i class="site-tag iconfont icon-tag icon-lg mr-1" id="${ md5(site.catNames!) }"></i>
+        ${site.catNames!}
+    </h4>
+    <!--div class="flex-fill"></div>
+    <a class='btn-move text-xs' href='#'>more+</a-->
+</div>
+<div id="content" class="content-site customize-site">
+    <!--获取内容列表-->
+    <div class="row">
+        <@navLinkListTag includeCategoryIds=(site.catIds)>
+        <#if data?? &&(data?size>0)>
+        <#list data as link2>
+        <div class="url-card col-6  col-sm-6 col-md-4 col-xl-5a col-xxl-6a">
+            <div class="url-body default">
+                <!--去除 Tooltip
+                <a href="{{ .url }}" target="_blank" data-id="" data-url="{{ .url }}" class="card no-c mb-4" title="{{ .title }}">
+                -->
+
+                <#if link2.qrcode?? && (link2.qrcode!="")>
+                <a href="javascript:" target=""
+                   class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='${(link2.qrcode)!}' width='128'>">
+                    <#else>
+                    <a href='${paramsTag("public_website_domain")}/site/${(link2.id)!}.html' target="_blank" data-id="" data-url='${paramsTag("public_website_domain")}/site/${(link2.id)!}.html' target='${(link2.target)!"_blank"}'
+                       class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-original-title="${ (link2.linkDesc)!'' }">
+                    </#if>
+
+                    <div class="card-body">
+                        <div class="url-content d-flex align-items-center">
+                            <div class="url-img mr-2 d-flex align-items-center justify-content-center">
+                                <#if link2.linkIcon??>
+                                <img class="lazy" src="${ (link2.linkIcon)!'#' }" data-src="${ (link2.linkIcon)! }"
+                                     onerror="javascript:this.src='${ (link2.linkIcon)! }'" alt="${ (link2.linkName)! }">
+                                <#else>
+
+                                <img class="lazy" src="${ctx()}/assets/images/logos/default.webp" data-src="${ctx()}/assets/images/logos/default.webp"
+                                     onerror="javascript:this.src='${ctx()}/assets/images/logos/default.webp'" alt="${ (link.linkName)! }">
+                            </#if>
+                        </div>
+                        <div class="url-info flex-fill">
+                            <div class="text-sm overflowClip_1">
+                                <strong>${ (link2.linkName)!"" }</strong>
+                            </div>
+                            <p class="overflowClip_1 m-0 text-muted text-xs">${ (link2.linkDesc)!'' }</p>
+                        </div>
+                    </div>
+            </div>
+            </a>
+            <a href='${paramsTag("public_website_domain")}/site/${(link2.id)!}.html' class="togo text-center text-muted is-views" data-id="689" target="${(link2.target)!'_blank'}"
+               data-toggle="tooltip" data-placement="right" title="直达" rel="nofollow">
+                <i class="iconfont icon-goto"></i>
+            </a>
+        </div>
+    </div>
+</#list>
+</#if>
+</@navLinkListTag>
+</div>
+</div>
+<div class="card border-success mb-3" >
+
+    <div class="card-body text-success">
+        <h5 class="card-title text-center">特别声明</h5>
+        <p class="card-text">本站绿闪导航提供的《${(site.linkName)!}》都来源于网络，不保证外部链接的准确性和完整性，同时，对于该外部链接的指向，不由绿闪导航实际控制，在<@formatTime value=site.created!/>收录时，该网页上的内容，都属于合规合法，后期网页的内容如出现违规，可以直接联系网站管理员进行删除，绿闪导航不承担任何责任。</p>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <div class="d-flex">
+            <span>绿闪导航致力于优质、实用的网络站点资源收集与分享！</span>
+            <span class="ml-auto d-none d-md-block">本文地址${paramsTag("public_website_domain")}/site/${(site.id)!}.html转载请注明</span>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</#macro>

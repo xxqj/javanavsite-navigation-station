@@ -1,0 +1,175 @@
+<#macro content_article>
+<div id="content" class="content-site customize-site">
+
+    <div class="row" style="padding-left: 30 em;padding-right: 30 em;margin: 0 0">
+        <div class="card  col-sm-12 col-md-8 col-lg-8 " >
+            <div class="card-body text-success">
+                <h5 class="card-title  text-center">${(article.title)!}</h5>
+                <div class="d-flex flex-fill text-muted text-sm pb-4 border-bottom border-t">
+                    <span class="mr-3"><i class="iconfont icon-time"></i><span>发表时间:<@formatTime value=article.created!/></span></span>
+                    <span class="mr-3"><i class="iconfont icon-user-circle"></i> 作者:${(article.author)!}</span>
+                    <div class="flex-fill"></div>
+                    <span class="mr-3"><i class="iconfont icon-tags mr-2"></i>
+                          <#if (article.categoryList)?? && (article.categoryList?size>0)>
+                           <#list article.categoryList as item>
+                              <#if item.type=='category'>
+                               <a class="text-primary" href='${paramsTag("public_website_domain")}/a/c/${(item.id)!}.html' target="_blank">${(item.title)!}</a>
+                             </#if>
+                           </#list>
+                         </#if>
+            </span>
+            <span class="views mr-3"><i class="iconfont icon-chakan"></i> 浏览次数:${(article.viewCount)!}</span>
+        </div>
+
+        <p class="card-text">  ${(article.contentHtml)!}</p>
+        <div class="post-tags my-3">
+            <i class="iconfont icon-tags mr-2"></i>
+            标签:
+            <#if (article.tagList)?? && (article.tagList?size>0)>
+            <#list article.tagList as item>
+            ${(item.tagName)!}
+        </#list>
+    </#if>
+</div>
+<div class="near-navigation rounded mt-4 py-2 ">
+    <div class="nav previous border-right border-color">
+        <@prevArticleTag articleId=(article.id)!>
+        <#if data??>
+        <a href="${data.url!}" class="near-permalink text-primary">
+            <span>上一篇</span>
+            <h4 class="near-title">${data.title!}</h4>
+        </a>
+    </#if>
+</@prevArticleTag>
+</div>
+<div class="nav none border-left border-color float-right" style="text-align: right;">
+    <@nextArticleTag articleId=(article.id)!>
+    <#if data??>
+    <a href="${data.url!}" class="near-permalink">
+        <span class="text-success">下一篇</span>
+        <h4 class="near-title text-success">${data.title!}</h4>
+    </a>
+</#if>
+</@nextArticleTag>
+</div>
+</div><!-- 文章导航结束-->
+</div>
+</div>
+<div class="card col-sm-12 col-md-4 col-lg-4 " >
+    <div class="card-body">
+        <h5 class="card-title">热门文章</h5>
+        <div class="list-grid list-rounded my-n2">
+            <ul class="list-group list-group-flush">
+                <@articleListTag  orderBy="view_count" cnt="6">
+                <#if data?? &&(data?size>0)>
+                <#list data as art>
+                <div class="list-item py-2">
+                    <div class="media media-3x2 rounded col-4 mr-3">
+                        <a class="media-content" href='${paramsTag("public_website_domain")}/a/${(art.id)!}.html' target="_blank"   style="background-image: url(${(art.thumbnail)!});"></a>
+                    </div>
+                    <div class="list-content py-0">
+                        <div class="list-body">
+                            <a href='${paramsTag("public_website_domain")}/a/${(art.id)!}.html' class="list-title overflowClip_2" rel="bookmark"> ${(art.title)!}</a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="d-flex flex-fill text-muted text-xs">
+                                <time class="d-inline-block"><@formatTime value=art.created!/></time>
+                                <div class="flex-fill"></div>
+                                <span class="discuss"><i class="iconfont icon-comment"></i> ${(art.viewCount)!}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+        </#if>
+    </@articleListTag>
+    </ul>
+</div>
+
+</div>
+</div>
+
+
+
+
+<div id="content2" class=" customize-site"">
+<div class="row" style="margin: 0 0">
+    <div class="col-sm-12 col-md-8 col-lg-8" >
+        <h4 class="text-gray text-lg my-4"><i class="site-tag iconfont icon-book icon-lg mr-1"></i>相关文章</h4>
+
+        <div class="row  mb-n4">
+            <@articleListTag  includeCategoryIds=(article.catIds) cnt="3" orderBy="a.view_count">
+            <#if data??>
+            <#list data as item>
+            <div class="col-6 col-md-4">
+                <div class="card-post list-item">
+                    <div class="media media-4x3 p-0 rounded">
+                        <a class="media-content" href='${paramsTag("public_website_domain")}/a/${(item.id)!}.html' target="_blank" style="background-image: url(${(item.thumbnail)!});"></a>
+                    </div>
+                    <div class="list-content">
+                        <div class="list-body">
+                            <a href='${paramsTag("public_website_domain")}/a/${(item.id)!}.html' target="_blank" class="list-title text-md overflowClip_2">${(item.title)!}</a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="d-flex flex-fill align-items-center">
+                                <a href='${paramsTag("public_website_domain")}/a/${(item.id)!}.html' class="flex-avatar mr-1" target="_blank">
+                                    <img alt="" src="${(item.thumbnail)!}"  class="avatar avatar-20 photo" height="20" width="20" loading="lazy" decoding="async">
+                                </a>
+                                <a href='${paramsTag("public_website_domain")}/a/${(item.id)!}.html' class="d-none d-md-inline-block text-xs" target="_blank">${(item.author)!}</a>
+                                <div class="flex-fill"></div>
+                                <div class="text-muted text-xs">
+                                    <span class="views mr-1"><i class="iconfont icon-chakan mr-1"></i>${(item.viewCount)!}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </#list>
+    </#if>
+</@articleListTag>
+</div><!-- 相关文章-->
+</div>
+<div class="card-body col-sm-12 col-md-4 col-lg-4">
+    <div class="card-body">
+        <h5 class="card-title">热门网址</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <@navLinkListTag  orderBy="a.view_count" cnt="6">
+        <#if data?? &&(data?size>0)>
+        <#list data as link>
+        <li class="list-group-item">
+            <div class="url-img rounded-circle">
+                <a href='${paramsTag("public_website_domain")}/site/${(link.id)!}.html' target="_blank">
+                    <img class="lazy unfancybox loaded" src="${(link.linkIcon)!}"  height="24em" width="24em" alt="${(link.linkName)!}" data-was-processed="true">
+                    ${(link.linkName)!}   (${(link.viewCount)! 1} 热度)
+                </a>
+            </div>
+        </li>
+    </#list>
+</#if>
+</@navLinkListTag>
+</ul>
+</div>
+</div>
+</div><!-- row-->
+</div>
+
+<div class="card border-success mb-3" >
+
+    <div class="card-body text-success">
+        <h5 class="card-title text-center">特别声明</h5>
+        <p class="card-text">本站绿闪导航提供的文章内容都来源于网络或者原创，不保证外部链接的准确性和完整性，同时，对于该外部链接的指向，不由绿闪导航实际控制，在收录时，该网页上的内容，都属于合规合法，后期网页的内容如出现违规，可以直接联系网站管理员进行删除，绿闪导航不承担任何责任。</p>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <div class="d-flex">
+            <span>绿闪导航致力于优质、实用的网络站点资源收集与分享！</span>
+            <span class="ml-auto d-none d-md-block">本文地址${paramsTag("public_website_domain")}/a/${(article.id)!}.html转载请注明</span>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</#macro>

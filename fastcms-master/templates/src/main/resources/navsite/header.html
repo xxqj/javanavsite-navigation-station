@@ -1,0 +1,59 @@
+<#macro header title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#f9f9f9" />
+    <title>${title!""}</title>
+    <link rel="shortcut icon" href="${ctx()}/favicon.ico" type="image/x-icon" />
+    <meta name="keywords" content="${seoTag("website_title")!""}" />
+
+    <#if paramsTag("baiduSiteVer")??>
+    <meta name="baidu-site-verification" content="${paramsTag("baiduSiteVer")!""}" />
+     </#if>
+    <link rel="stylesheet" id="block-library-css"
+        href="${ctx()}/assets/css/block-library.min-5.6.2.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="iconfont-css" href="${ctx()}/assets/css/iconfont-3.03029.1.css"
+        type="text/css" media="all" />
+    <link rel="stylesheet" id="bootstrap-css" href="${ctx()}/assets/css/bootstrap.min-4.3.1.css"
+        type="text/css" media="all" />
+    <link rel="stylesheet" id="fancybox-css" href="${ctx()}/assets/css/fancybox.min-3.5.7.css"
+        type="text/css" media="all" />
+    <link rel="stylesheet" id="iowen-css" href="${ctx()}/assets/css/style-3.03029.1.css"
+        type="text/css" media="all" />
+    <link rel="stylesheet" id="custom-css" href="${ctx()}/assets/css/custom-style.css"
+        type="text/css" media="all" />
+   <link rel="stylesheet" id="fortawesome-css" href="${ctx()}/assets/FontAwesome-4.7.0/css/font-awesome.min.css" type="text/css" />
+
+  <script type="text/javascript" src="${ctx()}/assets/js/jquery.min-3.2.1.js" id="jquery-js"></script>
+  <script type="text/javascript" src="${ctx()}/assets/js/content-search.js"  id="content-search-js"></script>
+  <!-- 百度统计 -->
+    <script>
+        <#if paramsTag("baiduhmid")??>
+            var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = 'https://hm.baidu.com/hm.js?${paramsTag("baiduhmid")!""}';
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+        </#if>
+    </script>
+    <!-- end 百度统计 -->
+    <!-- 51.LA 网站统计 -->
+     <#if paramsTag("tj51laid")??>
+        <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+        <script>LA.init({id:'${seoTag("tj51laid")!""}',ck:'${paramsTag("tj51lack")!""}'})</script>
+     </#if>
+    <!-- end 51.LA 网站统计 -->
+    <!-- Google AdSense -->
+   <#if paramsTag("GoogleAdsClient")??>
+    <script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${paramsTag("GoogleAdsClient")!""}' crossorigin="anonymous"></script>
+    </#if>
+    <!-- end Google AdSense -->
+</head>
+</#macro>

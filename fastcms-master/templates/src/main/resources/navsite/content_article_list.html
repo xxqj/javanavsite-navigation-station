@@ -1,0 +1,165 @@
+<#macro content_article_list>
+<div id="content" class="content-site customize-site">
+
+    <div class="row" style="padding-left: 30 em;padding-right: 30 em;margin: 0 0">
+        <div class="col-sm-12 col-md-8 col-lg-8" >
+            <div class="site-title mb-4">
+                <h1 class="text-gray text-lg mb-2">
+                    <i class="site-tag iconfont icon-tag icon-lg mr-1"></i>${(category.title)!}</h1>
+                <p class="text-secondary text-sm"></p>
+            </div><!-- 分类名称 -->
+            <div class="cat_list">
+                <#if articleVoPage??>
+                <#list articleVoPage.records as item>
+                <div class="list-grid list-grid-padding">
+                    <div class="list-item card">
+                        <div class="media media-3x2 rounded col-4 col-md-4">
+                            <a class="media-content" href='${paramsTag("public_website_domain")}/a/c/${(category.id)!}.html'   style="background-image: url(${(item.thumbnail)!});"></a>
+                        </div>
+                        <div class="list-content">
+                            <div class="list-body">
+                                <h2>
+                                    <a href='${paramsTag("public_website_domain")}/a/${(item.id)!}.html'  class="list-title text-lg overflowClip_2"><span class="badge badge-success" title="新">新</span>${item.title!}</a>
+                                </h2>
+                                <div class="list-desc d-none d-md-block text-sm text-secondary my-3">
+                                    <div class="overflowClip_2 ">${item.summary!}</div>
+                                </div>
+                            </div>
+                            <div class="list-footer">
+                                <div class="d-flex flex-fill align-items-center text-muted text-xs">
+                                    <div class="flex-fill d-flex">
+                                            <span><i class="iconfont icon-user-circle"></i>
+                                             ${(item.author)!}
+                                         </span>
+                                    </div>
+                                    <div class="flex-fill d-flex">
+                                        <span  class="d-none d-md-inline-block text-xs" ><i class="iconfont icon-time"></i><@formatTime value=item.created!/></span>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex flex-fill text-muted text-xs">
+
+                                            <div class="flex-fill"></div>
+                                            <span class="discuss"><i class="iconfont icon-comment"></i> ${(item.viewCount)!}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+        </#if>
+    </div>
+    <div class="posts-nav">
+        <@articlePageTag>
+        <a class="page-numbers" href="${data.prev.url!}">${data.prev.text!}</a>
+        <#list data.list as item>
+        <#if data.current?string == item.text>
+        <span aria-current="page" class="page-numbers current">${item.text!}</span>
+        <#else>
+        <a class="page-numbers" href="${item.url!}">${item.text!}</a>
+    </#if>
+</#list>
+<span class="page-numbers dots">…</span>
+<a class="page-numbers" href="${data.next.url!}">${data.next.text!}</a>
+</@articlePageTag>
+</div>
+</div><!-- 文章分类列表 -->
+<div class="col-sm-12 col-md-4 col-lg-4" >
+    <div class="d-flex flex-column">
+        <div class="p-2">
+            <div class="card-body">
+                <h5 class="card-title">文章分类</h5>
+                <ul class="list-group list-group-flush">
+                    <@categoryList  orderBy="sort_num" cnt="10">
+                    <#if data?? &&(data?size>0)>
+                    <#list data as cat>
+                    <li class="list-group-item">
+                        <div class="url-img rounded-circle">
+                            <a href='${paramsTag("public_website_domain")}/a/c/${(cat.id)!}.html' target="_blank" class="text-primary">
+                                <i class="iconfont icon-tags mr-2"></i>
+                                ${(cat.title)!}
+                            </a>
+                        </div>
+                    </li>
+                </#list>
+            </#if>
+        </@categoryList>
+        </ul>
+    </div>
+</div>
+<div class="p-2">
+    <div class="card-body">
+        <h5 class="card-title">热门文章</h5>
+        <div class="list-grid list-rounded my-n2">
+            <ul class="list-group list-group-flush">
+                <@articleListTag  orderBy="view_count" cnt="6">
+                <#if data?? &&(data?size>0)>
+                <#list data as art>
+                <div class="list-item py-2">
+                    <div class="media media-3x2 rounded col-4 mr-3">
+                        <a class="media-content" href='${paramsTag("public_website_domain")}/a/${(art.id)!}.html' target="_blank"   style="background-image: url(${(art.thumbnail)!});"></a>
+                    </div>
+                    <div class="list-content py-0">
+                        <div class="list-body">
+                            <a href='${paramsTag("public_website_domain")}/a/${(art.id)!}.html' class="list-title overflowClip_2" rel="bookmark"> ${(art.title)!}</a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="d-flex flex-fill text-muted text-xs">
+                                <time class="d-inline-block"><@formatTime value=art.created!/></time>
+                                <div class="flex-fill"></div>
+                                <span class="discuss"><i class="iconfont icon-comment"></i> ${(art.viewCount)!}</span>
+                            </div>
+                        </div>
+                    </div> <!-- list-content -->
+                </div>
+            </#list>
+        </#if>
+    </@articleListTag>
+    </ul>
+</div>
+</div>
+</div><!-- 热门文章-->
+<div class="p-2">
+    <div class="card-body">
+        <h5 class="card-title">热门网址</h5>
+        <ul class="list-group list-group-flush">
+            <@navLinkListTag  orderBy="a.view_count" cnt="6">
+            <#if data?? &&(data?size>0)>
+            <#list data as link>
+            <li class="list-group-item">
+                <div class="url-img rounded-circle">
+                    <a href='${paramsTag("public_website_domain")}/site/${(link.id)!}.html' target="_blank">
+                        <img class="lazy unfancybox loaded" src="${(link.linkIcon)!}"  height="24em" width="24em" alt="${(link.linkName)!}" data-was-processed="true">
+                        ${(link.linkName)!}   (${(link.viewCount)! 1} 热度)
+                    </a>
+                </div>
+            </li>
+        </#list>
+    </#if>
+</@navLinkListTag>
+</ul>
+</div>
+</div><!-- 热门网址-->
+</div>
+</div>
+</div>
+
+
+<div class="card border-success mb-3" >
+
+    <div class="card-body text-success">
+        <h5 class="card-title text-center">特别声明</h5>
+        <p class="card-text">本站绿闪导航提供的文章内容都来源于网络或者原创，不保证外部链接的准确性和完整性，同时，对于该外部链接的指向，不由绿闪导航实际控制，在收录时，该网页上的内容，都属于合规合法，后期网页的内容如出现违规，可以直接联系网站管理员进行删除，绿闪导航不承担任何责任。</p>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <div class="d-flex">
+            <span>绿闪导航致力于优质、实用的网络站点资源收集与分享！</span>
+            <span class="ml-auto d-none d-md-block">本文地址${paramsTag("public_website_domain")}/a/c/${(category.id)!}.html转载请注明</span>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</#macro>

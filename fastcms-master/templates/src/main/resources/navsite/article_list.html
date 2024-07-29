@@ -1,0 +1,22 @@
+<#import "header.html" as header>
+<@header.header "${(category.title)!}-分类文章列表-绿闪导航"></@header.header>
+
+<#import "sidebar.html" as sidebar>
+<@sidebar.sidebar/>
+
+<#import "content_header.html" as content_header>
+<@content_header.content_header/>
+
+<#import "content_search.html" as content_search>
+<@content_search.content_search/>
+<#import "content_article_list.html" as content_article_list>
+<@content_article_list.content_article_list/>
+
+<#import "content_footer.html" as content_footer>
+<@content_footer.content_footer/>
+
+<#import "modal_search.html" as modal_search>
+<@modal_search.modal_search/>
+
+<#import "footer.html" as footer>
+<@footer.footer/>

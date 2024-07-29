@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastcms.navsite.mapper.NavLinkMapper">
+
+<resultMap id="navMLink" type="com.fastcms.navsite.vo.NavLinkVo">
+ <result column="id"  property="id" />
+ <result column="link_name"  property="linkName"/>
+ <result column="link_url"  property="linkUrl" />
+ <result column="link_icon"  property="linkIcon" />
+ <result column="qrcode"  property="qrcode" />
+ <result column="sort_num"  property="sortNum" />
+ <result column="target"  property="target" />
+ <result column="url_type"  property="urlType" />
+ <result column="status"  property="status" />
+ <result column="link_desc"  property="linkDesc" />
+ <result column="cat_ids"  property="menuIds" />
+ <result column="view_count"  property="viewCount" />
+ <result column="suffix"  property="suffix" />
+</resultMap>
+
+ <select id="getPageLink" resultMap="navMLink">
+   select nl.* from nav_link nl
+   <where>
+      <if test="catIds != null and catIds != '' ">
+          nl.id in (select ml.link_id from nav_menu_link ml where ml.menu_id in (#{catIds}) )
+      </if>
+       <if test="linkName != null and linkName != '' ">
+           nl.link_name like '%${linkName}%'
+       </if>
+   </where>
+   order by nl.sort_num
+ </select>
+
+    <select id="getLinkListByCategoryId" resultMap="navMLink">
+        select a.*
+        from nav_menu_link acr
+        join nav_link a on acr.link_id = a.id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getLinksListByUrlType" resultMap="navMLink">
+        select a.*
+        from nav_link a
+        ${ew.customSqlSegment}
+    </select>
+    <update id="updateViewCount">
+        update nav_link set view_count = view_count + #{count} where id = #{id}
+    </update>
+</mapper>

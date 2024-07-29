@@ -1,0 +1,153 @@
+<#macro content_main>
+<div id="content" class="content-site customize-site">
+    <@navCatTag>
+       <#if data?? &&(data?size>0)>
+          <#list data as cat>
+            <#if cat.children?? && (cat.children?size>0)>
+	        <#--正文网址导航-->
+
+            <#list cat.children as ch>
+            <div class="d-flex flex-fill">
+                <h4 class="text-gray text-lg mb-4">
+                    <i class="site-tag iconfont icon-tag icon-lg mr-1" id='${md5(ch.name)!"" }'></i>
+                    ${(ch.name)!""}
+                </h4>
+                <div class="flex-fill"></div>
+            </div>
+            <#--获取内容列表-->
+            <div class="row">
+                <@navLinkListTag categoryId=(ch.id)>
+                <#if data?? &&(data?size>0)>
+                <#list data as link>
+                <div class="url-card col-6  col-sm-6 col-md-4 col-xl-5a col-xxl-6a">
+                    <div class="url-body default">
+                        <#if link.qrcode?? && (link.qrcode!="")>
+                        <a href="javascript:" target=""
+                           class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='${(link.qrcode)!}' width='128'>">
+                       <#else>
+                        <a href='${ (link.linkUrl)!"" }' target="_blank" data-id="" data-url='${ (link.linkUrl)!"" }' target='${(link.target)!"_blank"}'
+                            class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-original-title="${ (link.linkDesc)!'' }">
+                        </#if>
+                            <div class="card-body">
+                                <div class="url-content d-flex align-items-center">
+                                    <div class="url-img mr-2 d-flex align-items-center justify-content-center">
+                     <#if link.linkIcon??>
+					    <img class="lazy" src="${ (link.linkIcon)!'' }" data-src="${ (link.linkIcon)!'' }"
+                                                 alt="${ (link.linkName)!'' }">
+                    <#else>
+
+                        <img class="lazy" src="${ctx()}/assets/images/logos/default.webp" data-src="${ctx()}/assets/images/logos/default.webp"
+                                                onerror="javascript:this.src='${ctx()}/assets/images/logos/default.webp'" alt="${ (link.linkName)!'' }">
+                     </#if>
+                                    </div>
+                                    <div class="url-info flex-fill">
+                                        <div class="text-sm overflowClip_1">
+                                            <strong>${ (link.linkName)!"" }</strong>
+                                        </div>
+                                        <p class="overflowClip_1 m-0 text-muted text-xs">${ (link.linkDesc)!''}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="${ (link.linkUrl)! }" target="_blank" class="togo text-center text-muted is-views" data-id="689" target="${(link2.target)!'_blank'}"
+                            data-toggle="tooltip" data-placement="right" title="直达" rel="nofollow">
+                            <i class="iconfont icon-goto"></i>
+                        </a>
+                    </div>
+                </div>
+                </#list>
+              </#if>
+              </@navLinkListTag>
+
+            </div><!--end row-->
+            <br />
+
+            <!--END {{ children}} -->
+            </#list>
+    <#else> <!--END no children -->
+	    <!--常用推荐-->
+            <!-- {{ .taxonomy }} -->
+            <div class="d-flex flex-fill">
+                <h4 class="text-gray text-lg mb-4">
+                    <i class="site-tag iconfont icon-tag icon-lg mr-1" id="${ md5(cat.name!) }"></i>
+                    ${cat.name!}
+                </h4>
+                <!--div class="flex-fill"></div>
+                <a class='btn-move text-xs' href='#'>more+</a-->
+            </div>
+            <!--获取内容列表-->
+            <div class="row">
+                <@navLinkListTag tagId=(cat.id)>
+                <#if data?? &&(data?size>0)>
+                <#list data as link2>
+                <div class="url-card col-6  col-sm-6 col-md-4 col-xl-5a col-xxl-6a">
+                    <div class="url-body default">
+			<!--去除 Tooltip
+			<a href="{{ .url }}" target="_blank" data-id="" data-url="{{ .url }}" class="card no-c mb-4" title="{{ .title }}">
+			-->
+
+                        <#if link2.qrcode?? && (link2.qrcode!="")>
+                        <a href="javascript:" target=""
+                           class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='${(link2.qrcode)!}' width='128'>">
+                            <#else>
+                            <a href='${ (link2.linkUrl)!"" }' target="_blank" data-id="" data-url='${ (link2.linkUrl)!"" }' target='${(link2.target)!"_blank"}'
+                               class="card no-c mb-4" data-toggle="tooltip" data-placement="bottom" data-original-title="${ (link2.linkDesc)!'' }">
+                            </#if>
+
+                            <div class="card-body">
+                                <div class="url-content d-flex align-items-center">
+                                    <div class="url-img mr-2 d-flex align-items-center justify-content-center">
+                                        <#if link2.linkIcon??>
+                                        <img class="lazy" src="${ (link2.linkIcon)!'#' }" data-src="${ (link2.linkIcon)! }"
+                                             onerror="javascript:this.src='${ (link2.linkIcon)! }'" alt="${ (link2.linkName)! }">
+                                        <#else>
+
+                                        <img class="lazy" src="${ctx()}/assets/images/logos/default.webp" data-src="${ctx()}/assets/images/logos/default.webp"
+                                             onerror="javascript:this.src='${ctx()}/assets/images/logos/default.webp'" alt="${ (link.linkName)! }">
+                                    </#if>
+                                    </div>
+                                    <div class="url-info flex-fill">
+                                        <div class="text-sm overflowClip_1">
+                                            <strong>${ (link2.linkName)!"" }</strong>
+                                        </div>
+                                        <p class="overflowClip_1 m-0 text-muted text-xs">${ (link2.linkDesc)!'' }</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="${ (link2.linkUrl)!'#' }" class="togo text-center text-muted is-views" data-id="689" target="${(link2.target)!'_blank'}"
+                            data-toggle="tooltip" data-placement="right" title="直达" rel="nofollow">
+                            <i class="iconfont icon-goto"></i>
+                        </a>
+                    </div>
+                </div>
+                </#list>
+             </#if>
+          </@navLinkListTag>
+            </div>
+            <br />
+        </#if>
+        </#list> <#--END cat -->
+     </#if><!--cat -->
+</@navCatTag>
+
+    <h4 class="text-gray text-lg mb-4">
+        <i class="iconfont icon-book-mark-line icon-lg mr-2" id="friendlink"></i>友情链接
+    </h4>
+    <div class="friendlink text-xs card">
+        <div class="card-body">
+
+  <@friendLink>
+   <#if data?? &&(data?size>0)>
+      <#list data as item>
+            <a href="${ (item.linkUrl)!'#' }" title="${ (item.linkName)! }" target="${(link2.target)!'_blank'}">${ (item.linkName)!"" }</a>
+        </#list>
+   <#else>
+        <a href="https://www.greenflashcn" title="绿闪数字科技" target="_blank">绿闪数字科技</a>
+    </#if>
+</@friendLink>
+
+        </div>
+    </div>
+</div>
+</#macro>
