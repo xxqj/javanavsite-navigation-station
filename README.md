@@ -1,10 +1,22 @@
 # java_navsite导航站
 
 #### 介绍
-java_navsite导航站
+java_navsite导航站-展示网站演示
 ![输入图片说明](%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202024-07-29%20%E4%B8%8A%E5%8D%8810.03.20.png)
 
+前端导航页面基于WebStack-Hugo，作者使用freemark重写，适配java
+https://gitee.com/shenweiyan/WebStack-Hugo
 
+后台管理系统展示
+![输入图片说明](%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202024-07-29%20%E4%B8%8A%E5%8D%8810.15.34.png)
+
+
+后台管理系统基于fastcms
+https://gitee.com/dianbuapp_admin/fastcms
+fastcms内置一套完整的CMS建站系统
+fastcms完全融入微信生态，是一切微信营销插件的基石
+fastcms可以基于jar, zip包动态热插拔
+fastcms基于SpringBoot进行插件式开发，具有极强的扩展性，让你彻底从臃肿的项目中解脱出来
 
 #### 软件架构
 软件架构说明
