@@ -11,7 +11,7 @@ https://gitee.com/shenweiyan/WebStack-Hugo
 ![输入图片说明](%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202024-07-29%20%E4%B8%8A%E5%8D%8810.15.34.png)
 
 
-后台管理系统基于fastcms
+后台管理系统基于fastcms,作者修复了原fastcms加载资源等部分bug
 https://gitee.com/dianbuapp_admin/fastcms
 fastcms内置一套完整的CMS建站系统
 fastcms完全融入微信生态，是一切微信营销插件的基石
